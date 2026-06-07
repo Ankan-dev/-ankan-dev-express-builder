@@ -1,10 +1,10 @@
 {
-  "name": "@ankan-dev/express-builder",
+  "name": "@ankan-dev/create-express-app",
   "version": "1.2.3",
   "description": "A modern CLI tool to quickly scaffold Express.js applications with TypeScript or JavaScript support, complete with MongoDB and MySQL integration",
   "main": "index.js",
   "bin": {
-    "@ankan-dev/create-express-app": "dist/index.js"
+    "create-express-app": "dist/index.js"
   },
   "scripts": {
     "build": "tsc",
