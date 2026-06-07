@@ -24,7 +24,7 @@ npm install -g @ankan-dev/express-builder
 Or use directly with npx:
 
 ```bash
-npx @ankan-dev/express-builder my-app
+npx @ankan-dev/create-express-app my-app
 ```
 
 ## Quick Start
@@ -32,7 +32,7 @@ npx @ankan-dev/express-builder my-app
 ### Using npx (Recommended - No Installation Required)
 
 ```bash
-npx @ankan-dev/express-builder my-app
+npx @ankan-dev/create-express-app my-app
 cd my-app
 npm run dev
 ```
@@ -40,7 +40,7 @@ npm run dev
 ### Using Global Installation
 
 ```bash
-express-builder my-app
+@ankan-dev/create-express-app my-app
 cd my-app
 npm run dev
 ```
@@ -48,7 +48,7 @@ npm run dev
 ### Create App in Current Directory
 
 ```bash
-npx @ankan-dev/express-builder .
+npx @ankan-dev/create-express-app .
 ```
 
 ## Setup Wizard
@@ -99,12 +99,15 @@ my-app/
 │   ├── repository/              # Database repository layer
 │   ├── routes/                  # API routes
 │   ├── services/                # Business logic
-│   ├── models/                  # Database models (if MongoDB)
+│   ├── models/                  # Database models (MongoDB only)
+│   ├── Schema/                  # Database table definitions (MySQL only)
 │   └── utils/
 │       ├── Asynchandler.js      # Async error wrapper
 │       ├── Errorhandler.js      # Error handling utility
 │       ├── Logger.js            # Logging utility
 │       └── Responsehandler.js   # Standard response formatter
+├── drizzle/                     # Migration files (MySQL only)
+├── drizzle.config.js            # Drizzle ORM config (MySQL only)
 ├── .env.example                 # Environment variables template
 ├── package.json
 └── .gitignore
@@ -118,19 +121,22 @@ my-app/
 │   ├── app/
 │   │   └── app.ts               # Express app configuration
 │   ├── config/
-│   │   └── dbConfig.ts          # Database config (if MongoDB)
+│   │   └── dbConfig.ts          # Database config (MongoDB or MySQL)
 │   ├── controllers/             # Route controllers
 │   ├── middlewares/             # Custom middleware
 │   ├── repository/              # Database repository layer
 │   ├── routes/                  # API routes
 │   ├── services/                # Business logic
-│   ├── models/                  # Database models (if MongoDB)
+│   ├── models/                  # Database models (MongoDB only)
+│   ├── Schema/                  # Database table definitions (MySQL only)
 │   └── utils/
 │       ├── Asynchandler.ts      # Async error wrapper
 │       ├── Errorhandler.ts      # Error handling utility
 │       ├── Logger.ts            # Logging utility
 │       └── Responsehandler.ts   # Standard response formatter
+├── drizzle/                     # Migration files (MySQL only)
 ├── dist/                        # Compiled JavaScript output
+├── drizzle.config.ts            # Drizzle ORM config (MySQL only)
 ├── tsconfig.json
 ├── .env.example                 # Environment variables template
 ├── package.json
@@ -194,26 +200,26 @@ PORT=3000
 NODE_ENV=development
 
 # MongoDB Configuration (if MongoDB is set up)
-MONGODB_URI=mongodb://localhost:27017/your-database-name
+MONGODB_URI=mongodb://localhost:27017
+MONGODB_DB_NAME=your-database-name
 
 # MySQL Configuration (if MySQL is set up)
-DB_HOST=localhost
-DB_PORT=3306
-DB_USER=your_username
-DB_PASSWORD=your_password
-DB_NAME=your_database
+DATABASE_URL=mysql://username:password@localhost:3306/database_name
 ```
 
-### Common Environment Variables
+### Environment Variable Details
 
+#### Server Configuration
 - **PORT** - Server port (default: 3000)
 - **NODE_ENV** - Environment mode (`development`, `production`, `staging`)
-- **MONGODB_URI** - MongoDB connection string (only if MongoDB is selected)
-- **DB_HOST** - MySQL host (only if MySQL is selected)
-- **DB_PORT** - MySQL port (default: 3306)
-- **DB_USER** - MySQL username
-- **DB_PASSWORD** - MySQL password
-- **DB_NAME** - MySQL database name
+
+#### MongoDB Configuration (if selected)
+- **MONGODB_URI** - MongoDB connection string (e.g., `mongodb://localhost:27017`)
+- **MONGODB_DB_NAME** - MongoDB database name (e.g., `my-app`)
+
+#### MySQL Configuration (if selected)
+- **DATABASE_URL** - Complete MySQL connection URL in format: `mysql://username:password@host:port/database_name`
+  - Example: `mysql://root:mypassword@localhost:3306/my_app_db`
 
 ## Project Details
 
@@ -277,8 +283,11 @@ If you choose to set up MongoDB during initialization:
 
 ### Environment Variables for MongoDB:
 ```env
-MONGODB_URI=mongodb://localhost:27017/my-app
+MONGODB_URI=mongodb://localhost:27017
+MONGODB_DB_NAME=my-app
 ```
+
+**Note:** The database name is specified separately from the connection URI for better configuration management.
 
 ### Using MongoDB Models:
 ```typescript
@@ -340,12 +349,15 @@ Perfect for browsing data, running queries, and managing your database without u
 
 ### Environment Variables for MySQL:
 ```env
-DB_HOST=localhost
-DB_PORT=3306
-DB_USER=root
-DB_PASSWORD=your_password
-DB_NAME=my-app
+DATABASE_URL=mysql://root:your_password@localhost:3306/my-app
 ```
+
+**Format Guide:**
+- Replace `root` with your MySQL username
+- Replace `your_password` with your MySQL password
+- Replace `localhost` with your MySQL host
+- Replace `3306` with your MySQL port if different
+- Replace `my-app` with your actual database name
 
 ### Using MySQL with Drizzle ORM:
 ```typescript
@@ -472,7 +484,7 @@ npm install
 
 ## Version Information
 
-- **Latest Version**: 1.0.2
+- **Latest Version**: 1.2.0
 - **Package Name**: @ankan-dev/express-builder
 - **CLI Command**: @ankan-dev/create-express-app
 
@@ -480,13 +492,14 @@ npm install
 
 ### Currently Supported
 - ✅ **MongoDB** with Mongoose ORM
+- ✅ **MySQL** with Drizzle ORM
 
 ### Upcoming Integrations
 We're actively working on expanding database and ORM support. Future versions will include:
+- 🔜 PostgreSQL with Drizzle ORM
 - 🔜 PostgreSQL with Prisma ORM
 - 🔜 PostgreSQL with TypeORM
 - 🔜 MySQL with Sequelize ORM
-- 🔜 PostgreSQL/MySQL with Drizzle ORM
 - 🔜 SQLite for lightweight projects
 - 🔜 Firebase/Firestore integration
 

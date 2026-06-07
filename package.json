@@ -1,7 +1,7 @@
 {
   "name": "@ankan-dev/express-builder",
   "version": "1.2.0",
-  "description": "",
+  "description": "A modern CLI tool to quickly scaffold Express.js applications with TypeScript or JavaScript support, complete with MongoDB and MySQL integration",
   "main": "index.js",
   "bin": {
     "@ankan-dev/create-express-app": "dist/index.js"
@@ -10,9 +10,29 @@
     "build": "tsc",
     "main": "node ./dist/index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "express",
+    "cli",
+    "scaffold",
+    "typescript",
+    "javascript",
+    "mongodb",
+    "mysql",
+    "drizzle",
+    "mongoose",
+    "express-generator",
+    "project-generator",
+    "boilerplate"
+  ],
+  "author": "Ankan Mandal (ankan-dev)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Ankan-dev/-ankan-dev-express-builder/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ankan-dev/-ankan-dev-express-builder.git"
+  },
   "type": "commonjs",
   "devDependencies": {
     "@types/node": "^25.9.1",
