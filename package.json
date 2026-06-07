@@ -1,6 +1,6 @@
 {
   "name": "@ankan-dev/express-builder",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "A modern CLI tool to quickly scaffold Express.js applications with TypeScript or JavaScript support, complete with MongoDB and MySQL integration",
   "main": "index.js",
   "bin": {
