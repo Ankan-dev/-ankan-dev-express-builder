@@ -496,8 +496,12 @@ Stay tuned for more database and ORM options in upcoming releases!
 
 Ankan Dev
 
+## Repository
+
+GitHub: [https://github.com/Ankan-dev/-ankan-dev-express-builder](https://github.com/Ankan-dev/-ankan-dev-express-builder)
+
 ---
 
 **Happy coding! 🚀**
 
-For issues or feature requests, please open an issue or contact the maintainer.
+For issues or feature requests, please visit the [GitHub repository](https://github.com/Ankan-dev/-ankan-dev-express-builder) or contact the maintainer.
