@@ -281,6 +281,20 @@ If you choose to set up MongoDB during initialization:
 3. **models** directory with sample models
 4. **Updated app.ts/app.js** - Database connection initialization
 
+### MongoDB Project Structure:
+```
+src/
+├── config/
+│   └── dbConfig.ts/js          # MongoDB connection setup
+├── models/
+│   └── [Your MongoDB models]   # Mongoose schemas
+├── controllers/                # Route handlers
+├── routes/                     # API endpoints
+├── services/                   # Business logic
+├── middlewares/                # Custom middleware
+└── utils/                      # Utilities (Logger, ErrorHandler, etc.)
+```
+
 ### Environment Variables for MongoDB:
 ```env
 MONGODB_URI=mongodb://localhost:27017
