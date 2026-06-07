@@ -1,0 +1,27 @@
+{
+  "name": "@ankan-dev/express-builder",
+  "version": "1.1.2",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "@ankan-dev/create-express-app": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "main": "node ./dist/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/node": "^25.9.1",
+    "typescript": "^6.0.3"
+  },
+  "dependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "chalk": "^5.6.2",
+    "fs-extra": "^11.3.5",
+    "inquirer": "^14.0.2"
+  }
+}
