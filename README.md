@@ -1,6 +1,6 @@
 # Express-Builder
 
-A modern CLI tool to quickly scaffold Express.js applications with TypeScript or JavaScript support, complete with MongoDB integration, utility helpers, and production-ready project structure.
+A modern CLI tool to quickly scaffold Express.js applications with TypeScript or JavaScript support, complete with MongoDB and MySQL integration, utility helpers, and production-ready project structure.
 
 ## Features
 
