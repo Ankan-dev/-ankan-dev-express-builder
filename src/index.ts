@@ -9,7 +9,7 @@ import { execSync } from "child_process";
 
 import { GenerateMongoDbSetup } from "./Database/mongodbSetup";
 import { GenerateDrizzleSetup } from "./Database/DrizzleSetup";
-
+import { EjsSetup } from "./Template_Engine/EjsSetup";
 
 const main = async ()=>{
     const projectName = process.argv[2] || "my-app";
@@ -95,43 +95,50 @@ const main = async ()=>{
         ]
     })
 
-    if(!needDb){
-        console.log(chalk.green(`your express setup with ${language} is ready....`))
-        return;
+    if(needDb){
+        const dbChoice = await inquirer.select({
+            message:chalk.cyan("Select your database: "),
+            choices:[
+                {
+                    name:chalk.green("MongoDB"),
+                    value:"MongoDB"
+                },
+                // {
+                //     name:chalk.green("PostgreSQL"),
+                //     value:"PostgreSQL"
+                // },
+                {
+                    name:chalk.green("MySQL"),
+                    value:"MySQL"
+                }
+            ]
+        })
+
+        if(dbChoice === "MongoDB"){
+            GenerateMongoDbSetup(projectDir,packageManager,language)
+        } else {
+            console.log("DB choice: ", dbChoice)
+            GenerateDrizzleSetup(projectDir,packageManager,language,dbChoice)
+        }
     }
 
-    const dbChoice = await inquirer.select({
-        message:chalk.cyan("Select your database: "),
-        choices:[
-            {
-                name:chalk.green("MongoDB"),
-                value:"MongoDB"
-            },
-            // {
-            //     name:chalk.green("PostgreSQL"),
-            //     value:"PostgreSQL"
-            // },
-            {
-                name:chalk.green("MySQL"),
-                value:"MySQL"
-            }
-        ]
-    })
+    const templateChoice = await inquirer.select({
+    message:chalk.cyan("Do you want to add EJS template engine in your project?"),
+    choices:[
+        {
+            name:chalk.green("Yes"),
+            value:true
+        },
+        {
+            name:chalk.red("No"),
+            value:false
+        }
+    ]
+   })
 
-    // if(dbChoice !== "MongoDB"){
-    //     console.log(chalk.green(`your express setup with ${language} is ready....`))
-    //     return;
-    //  }
-
-    if(dbChoice === "MongoDB"){
-        GenerateMongoDbSetup(projectDir,packageManager,language)
-    } else {
-
-        console.log("DB choice: ", dbChoice)
-        GenerateDrizzleSetup(projectDir,packageManager,language,dbChoice)
+    if(templateChoice){
+        EjsSetup(projectDir,packageManager,language)
     }
-
-   
 
     console.log(chalk.green(`your express setup with ${language} is ready....`))
     console.log(chalk.yellow(`To get started:\n1. cd ${projectName}\n2. ${packageManager} run dev`))
