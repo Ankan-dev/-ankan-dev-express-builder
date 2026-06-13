@@ -94,9 +94,9 @@ const main = async ()=>{
             }
         ]
     })
-
+    let dbChoice = ""
     if(needDb){
-        const dbChoice = await inquirer.select({
+        dbChoice = await inquirer.select({
             message:chalk.cyan("Select your database: "),
             choices:[
                 {
@@ -137,7 +137,8 @@ const main = async ()=>{
    })
 
     if(templateChoice){
-        EjsSetup(projectDir,packageManager,language)
+        
+        EjsSetup(projectDir,packageManager,language,dbChoice)
     }
 
     console.log(chalk.green(`your express setup with ${language} is ready....`))

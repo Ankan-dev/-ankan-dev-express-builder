@@ -3,9 +3,10 @@ import chalk from "chalk";
 import path from "path";
 import fs from "fs-extra";
 
-export const EjsSetup = (projectDir: string, packageManager: string, language: string) => {
+export const EjsSetup = (projectDir: string, packageManager: string, language: string,database:string) => {
 
-    console.log("Setting up EJS template engine...")
+    const dbChoice = database || "None"
+    console.log("Database selected: ", chalk.green(dbChoice))
 
     switch (packageManager) {
         case "npm": {
@@ -38,7 +39,7 @@ export const EjsSetup = (projectDir: string, packageManager: string, language: s
     }
 
     const appFilePath = path.join(projectDir, language === "Typescript" ? "src/app/app.ts" : "src/app/app.js");
-    const ejsAppFilePath = path.join(__dirname, "../../template/Ejs", language, language === "Typescript" ? "app.ts" : "app.js");
+    const ejsAppFilePath = path.join(__dirname, "../../template/Ejs", language,dbChoice, language === "Typescript" ? "app.ts" : "app.js");
 
     fs.copySync(ejsAppFilePath, appFilePath, {
         overwrite: true
