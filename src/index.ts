@@ -46,7 +46,7 @@ const main = async () => {
         ]
     })
 
-    const templateDir = path.join(__dirname, '../template', language)
+    const templateDir = path.join(__dirname, '..', 'template', language)
     const projectDir = projectName === "." ? process.cwd() : path.join(process.cwd(), projectName)
 
     fs.copySync(templateDir, projectDir, {

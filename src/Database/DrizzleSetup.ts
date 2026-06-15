@@ -71,7 +71,8 @@ export const GenerateDrizzleSetup = (projectDir: string, packageManager: string,
         }
 
         if (language === "Typescript") {
-            execSync("npm i -D @types/pg", {
+            const installCmd = packageManager === "yarn" ? "yarn add -D @types/pg" : packageManager === "pnpm" ? "pnpm add -D @types/pg" : "npm i -D @types/pg"
+            execSync(installCmd, {
                 cwd: projectDir,
                 stdio: "inherit"
             })
@@ -81,21 +82,21 @@ export const GenerateDrizzleSetup = (projectDir: string, packageManager: string,
 
 
     const dbConfigDest = language === "Javascript" ? path.join(projectDir, "src", "config", "dbConfig.js") : path.join(projectDir, "src", "config", "dbConfig.ts");
-    const dbConfigSource = language === "Javascript" ? path.join(__dirname, '../../template', database, 'Drizzle', language, 'dbConfig.js') : path.join(__dirname, '../../template', database, 'Drizzle', language, 'dbConfig.ts');
+    const dbConfigSource = language === "Javascript" ? path.join(__dirname, '..', '..', 'template', database, 'Drizzle', language, 'dbConfig.js') : path.join(__dirname, '..', '..', 'template', database, 'Drizzle', language, 'dbConfig.ts');
 
     fs.copySync(dbConfigSource, dbConfigDest, {
         overwrite: true
     })
 
     const drizzleConfigDest = language === "Javascript" ? path.join(projectDir, "drizzle.config.js") : path.join(projectDir, "drizzle.config.ts");
-    const drizzleConfigSource = language === "Javascript" ? path.join(__dirname, '../../template', database, 'Drizzle', language, 'drizzle.config.js') : path.join(__dirname, '../../template', database, 'Drizzle', language, 'drizzle.config.ts')
+    const drizzleConfigSource = language === "Javascript" ? path.join(__dirname, '..', '..', 'template', database, 'Drizzle', language, 'drizzle.config.js') : path.join(__dirname, '..', '..', 'template', database, 'Drizzle', language, 'drizzle.config.ts')
 
     fs.copySync(drizzleConfigSource, drizzleConfigDest, {
         overwrite: true
     })
 
     const schemaDest = path.join(projectDir, "src", "Schema");
-    const schemaSource = path.join(__dirname, '../../template', database, 'Drizzle', "Schema")
+    const schemaSource = path.join(__dirname, '..', '..', 'template', database, 'Drizzle', "Schema")
 
     fs.copySync(schemaSource, schemaDest, {
         overwrite: true
