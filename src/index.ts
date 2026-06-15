@@ -50,7 +50,10 @@ const main = async () => {
     const projectDir = projectName === "." ? process.cwd() : path.join(process.cwd(), projectName)
 
     fs.copySync(templateDir, projectDir, {
-        filter: (src) => !src.includes('node_modules')
+        filter: (src) => {
+            const relative = path.relative(templateDir, src)
+            return relative === '' || !relative.split(path.sep).includes('node_modules')
+        }
     })
 
     const gitignoreSrc = path.join(projectDir, 'gitignore')
